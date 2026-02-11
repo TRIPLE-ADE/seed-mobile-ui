@@ -1,12 +1,12 @@
 import { Alert, ActivityIndicator } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import * as Haptics from "expo-haptics";
-import { View, Text, ScrollView, Pressable } from "../../tw";
-import { Image } from "../../tw/image";
-import { Icon } from "../../components/icon";
-import { useDetectImage, useDetectVideo } from "../../api/hooks";
-import { ApiError } from "../../api/detection";
-import { getSettings } from "../../stores/scan-store";
+import { View, Text, ScrollView, Pressable } from "../tw";
+import { Image } from "../tw/image";
+import { Icon } from "../components/icon";
+import { useDetectImage, useDetectVideo } from "../api/hooks";
+import { ApiError } from "../api/detection";
+import { getSettings } from "../stores/scan-store";
 
 export default function ConfirmScreen() {
   const { uri, type } = useLocalSearchParams<{
@@ -34,8 +34,9 @@ export default function ConfirmScreen() {
         { videoUri: uri, confidence: conf, frameSkip: 3 },
         {
           onSuccess: (result) => {
+            console.log("result", result);
             router.replace({
-              pathname: "/(scan)/results",
+              pathname: "/results",
               params: {
                 detections: JSON.stringify(
                   result.frame_results.flatMap((f) => f.detections)
@@ -67,7 +68,7 @@ export default function ConfirmScreen() {
         {
           onSuccess: (result) => {
             router.replace({
-              pathname: "/(scan)/results",
+              pathname: "/results",
               params: {
                 detections: JSON.stringify(result.detections),
                 totalDetections: result.total_detections.toString(),

@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { Alert, Share } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import * as Haptics from "expo-haptics";
-import { View, Text, ScrollView, Pressable } from "../../tw";
-import { Image } from "../../tw/image";
-import { Icon } from "../../components/icon";
-import { StatsCard } from "../../components/stats-card";
-import { DetectionCard } from "../../components/detection-card";
+import { View, Text, ScrollView, Pressable } from "../tw";
+import { Image } from "../tw/image";
+import { Icon } from "../components/icon";
+import { StatsCard } from "../components/stats-card";
+import { DetectionCard } from "../components/detection-card";
 import {
   saveScan,
   createScanRecord,
   getScans,
   type ScanRecord,
-} from "../../stores/scan-store";
-import type { Detection } from "../../api/detection";
+} from "../stores/scan-store";
+import type { Detection } from "../api/detection";
 
 export default function ResultsScreen() {
   const params = useLocalSearchParams<{
@@ -88,7 +88,7 @@ export default function ResultsScreen() {
 
   const handleNewScan = async () => {
     if (process.env.EXPO_OS === "ios") await Haptics.selectionAsync();
-    router.replace("/(scan)");
+    router.dismissAll();
   };
 
   return (

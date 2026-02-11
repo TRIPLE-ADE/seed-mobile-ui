@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Switch } from "react-native";
-import { View, Text, ScrollView, Pressable } from "../../tw";
-import { Icon } from "../../components/icon";
+import { View, Text, ScrollView, Pressable } from "../../../tw";
+import { Icon } from "../../../components/icon";
 import {
   getSettings,
   saveSettings,
   type AppSettings,
-} from "../../stores/scan-store";
-import { useHealthCheck } from "../../api/hooks";
+} from "../../../stores/scan-store";
+import { useHealthCheck } from "../../../api/hooks";
 
 export default function SettingsScreen() {
   const [settings, setSettings] = useState<AppSettings | null>(null);
@@ -202,7 +202,6 @@ export default function SettingsScreen() {
         >
           <View className="flex-row items-center gap-3">
             <View className="items-center justify-center w-12 h-12 rounded-xl bg-primary-light"
-             
             >
               <Icon name="leaf" size={22} color="#10b981" />
             </View>

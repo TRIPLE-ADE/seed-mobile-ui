@@ -2,15 +2,15 @@ import { useCallback, useState } from "react";
 import { Alert, Platform } from "react-native";
 import { useFocusEffect, router } from "expo-router";
 import * as Haptics from "expo-haptics";
-import { View, Text, ScrollView, Pressable } from "../../tw";
-import { Icon } from "../../components/icon";
-import { ScanItem } from "../../components/scan-item";
+import { View, Text, ScrollView, Pressable } from "../../../tw";
+import { Icon } from "../../../components/icon";
+import { ScanItem } from "../../../components/scan-item";
 import {
   getScans,
   deleteScan,
   clearScans,
   type ScanRecord,
-} from "../../stores/scan-store";
+} from "../../../stores/scan-store";
 
 export default function HistoryScreen() {
   const [scans, setScans] = useState<ScanRecord[]>([]);
@@ -82,7 +82,7 @@ export default function HistoryScreen() {
           scan={scan}
           onPress={() =>
             router.push({
-              pathname: "/(scan)/results",
+              pathname: "/results",
               params: { scanId: scan.id },
             })
           }

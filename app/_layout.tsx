@@ -15,7 +15,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }}  />
         <Stack.Screen name="camera" options={{ headerShown: false }} />
         <Stack.Screen
           name="confirm"

@@ -2,11 +2,11 @@ import { useCallback, useState } from "react";
 import { useFocusEffect, router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import * as Haptics from "expo-haptics";
-import { View, Text, ScrollView, Pressable } from "../../tw";
-import { Icon } from "../../components/icon";
-import { StatsCard } from "../../components/stats-card";
-import { ScanItem } from "../../components/scan-item";
-import { getScans, type ScanRecord } from "../../stores/scan-store";
+import { View, Text, ScrollView, Pressable } from "../../../tw";
+import { Icon } from "../../../components/icon";
+import { StatsCard } from "../../../components/stats-card";
+import { ScanItem } from "../../../components/scan-item";
+import { getScans, type ScanRecord } from "../../../stores/scan-store";
 
 export default function HomeScreen() {
   const [recentScans, setRecentScans] = useState<ScanRecord[]>([]);
@@ -32,7 +32,7 @@ export default function HomeScreen() {
 
   const handleCamera = async () => {
     if (process.env.EXPO_OS === "ios") await Haptics.selectionAsync();
-    router.push("/(scan)/camera");
+    router.push("/camera");
   };
 
   const handleGallery = async () => {
@@ -40,13 +40,13 @@ export default function HomeScreen() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images", "videos"],
       allowsEditing: false,
-      quality: 0.8,
+      quality: 1,
     });
 
     if (!result.canceled && result.assets?.[0]) {
       const asset = result.assets[0];
       router.push({
-        pathname: "/(scan)/confirm",
+        pathname: "/confirm",
         params: {
           uri: asset.uri,
           type: asset.type === "video" ? "video" : "image",
@@ -118,7 +118,7 @@ export default function HomeScreen() {
             </Text>
             <Pressable
               className="active:opacity-60"
-              onPress={() => router.push("/(history)")}
+              onPress={() => router.navigate("/(tabs)/(history)")}
             >
               <Text className="text-sm font-semibold text-primary">
                 See All
@@ -131,7 +131,7 @@ export default function HomeScreen() {
               scan={scan}
               onPress={() =>
                 router.push({
-                  pathname: "/(scan)/results",
+                  pathname: "/results",
                   params: { scanId: scan.id },
                 })
               }

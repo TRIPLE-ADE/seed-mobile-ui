@@ -1,19 +1,18 @@
 import { useRef, useState } from "react";
-import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { View, Text, Pressable } from "../../tw";
-import { Icon } from "../../components/icon";
+import { View, Text, Pressable } from "../tw";
+import { Icon } from "../components/icon";
 
 export default function CameraScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const [facing, setFacing] = useState<CameraType>("back");
   const [flash, setFlash] = useState(false);
-  const { top, bottom } = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
 
   if (!permission?.granted) {
     return (
@@ -54,7 +53,7 @@ export default function CameraScreen() {
     const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
     if (photo) {
       router.push({
-        pathname: "/(scan)/confirm",
+        pathname: "/confirm",
         params: { uri: photo.uri, type: "image" },
       });
     }
@@ -65,13 +64,13 @@ export default function CameraScreen() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images", "videos"],
       allowsEditing: false,
-      quality: 0.8,
+      quality: 1,
     });
 
     if (!result.canceled && result.assets?.[0]) {
       const asset = result.assets[0];
       router.push({
-        pathname: "/(scan)/confirm",
+        pathname: "/confirm",
         params: {
           uri: asset.uri,
           type: asset.type === "video" ? "video" : "image",
