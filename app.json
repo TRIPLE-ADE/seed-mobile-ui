@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "scheme": "seed-mobile",
     "plugins": [
       "expo-router",
@@ -21,7 +20,10 @@
         {
           "photosPermission": "Allow Seed Scanner to access your photos to select seed images for analysis."
         }
-      ]
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-web-browser"
     ],
     "splash": {
       "image": "./assets/splash-icon.png",
