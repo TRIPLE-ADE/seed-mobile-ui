@@ -1,14 +1,13 @@
-import { View, Text, Pressable } from "../tw";
-import { Image } from "../tw/image";
+import { View, Text, Link } from "@/tw";
+import { Image } from "@/tw/image";
 import { Icon } from "./icon";
-import type { ScanRecord } from "../stores/scan-store";
+import type { ScanRecord } from "@/stores/scan-store";
 
 interface ScanItemProps {
   scan: ScanRecord;
-  onPress: () => void;
 }
 
-export function ScanItem({ scan, onPress }: ScanItemProps) {
+export function ScanItem({ scan }: ScanItemProps) {
   const date = new Date(scan.timestamp);
   const dateStr = date.toLocaleDateString(undefined, {
     month: "short",
@@ -24,15 +23,15 @@ export function ScanItem({ scan, onPress }: ScanItemProps) {
     scan.healthPercentage >= 70
       ? "#22c55e"
       : scan.healthPercentage >= 40
-      ? "#f59e0b"
-      : "#ef4444";
+        ? "#f59e0b"
+        : "#ef4444";
 
   return (
-    <View style={{ borderCurve: "continuous", borderRadius: 16 }}>
-      <Pressable
-        className="flex-row gap-3 rounded-2xl bg-sf-bg-3 p-3 border border-card-border active:opacity-70"
-        onPress={onPress}
-      >
+    <Link
+      href={{ pathname: "/results", params: { scanId: scan.id } }}
+      className="rounded-2xl bg-sf-bg-3 p-3 border border-card-border active:opacity-70"
+    >
+      <View className="flex-row justify-between gap-3 w-full">
         {/* Thumbnail */}
         <View className="w-16 h-16 rounded-xl overflow-hidden bg-sf-bg-2">
           <Image
@@ -70,7 +69,7 @@ export function ScanItem({ scan, onPress }: ScanItemProps) {
             <Icon name="chevron-forward" size={12} color="#AEAEB2" />
           </View>
         </View>
-      </Pressable>
-    </View>
+      </View>
+    </Link>
   );
 }

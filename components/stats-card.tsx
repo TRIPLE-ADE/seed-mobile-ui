@@ -1,4 +1,4 @@
-import { View, Text } from "../tw";
+import { View, Text } from "@/tw";
 
 interface StatsCardProps {
   label: string;

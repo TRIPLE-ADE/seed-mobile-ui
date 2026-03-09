@@ -1,8 +1,7 @@
 import { useCallback, useState } from "react";
 import { useFocusEffect, router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
-import * as Haptics from "expo-haptics";
-import { View, Text, ScrollView, Pressable } from "../../../tw";
+import { View, Text, ScrollView, Pressable, Link } from "../../../tw";
 import { Icon } from "../../../components/icon";
 import { StatsCard } from "../../../components/stats-card";
 import { ScanItem } from "../../../components/scan-item";
@@ -30,13 +29,7 @@ export default function HomeScreen() {
     0
   );
 
-  const handleCamera = async () => {
-    if (process.env.EXPO_OS === "ios") await Haptics.selectionAsync();
-    router.push("/camera");
-  };
-
   const handleGallery = async () => {
-    if (process.env.EXPO_OS === "ios") await Haptics.selectionAsync();
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images", "videos"],
       allowsEditing: false,
@@ -73,20 +66,17 @@ export default function HomeScreen() {
       {/* Action Buttons */}
       <View className="gap-3">
         {/* Primary CTA — Scan Seeds */}
-        <Pressable
-          className="rounded-2xl bg-primary p-5 items-center gap-2 active:opacity-80 border border-card-border shadow-sm"
-          onPress={handleCamera}
-        >
-          <View
-            className="items-center justify-center rounded-full w-16 h-16 bg-white/20"
-          >
-            <Icon name="camera" size={28} color="#fff" />
+        <Link href="/camera" className="rounded-2xl w-full bg-primary active:opacity-80 p-10 border border-card-border shadow-sm items-center">
+          <View className="items-center flex-col gap-2 w-full">
+            <View className="items-center justify-center rounded-full w-16 h-16 bg-white/20">
+              <Icon name="camera" size={28} color="#fff" />
+            </View>
+            <Text className="text-lg font-bold text-white">Scan Seeds</Text>
+            <Text className="text-sm text-white/70">
+              Take a photo to detect seed damage
+            </Text>
           </View>
-          <Text className="text-lg font-bold text-white">Scan Seeds</Text>
-          <Text className="text-sm text-white/70">
-            Take a photo to detect seed damage
-          </Text>
-        </Pressable>
+        </Link>
 
         {/* Secondary CTA — Upload */}
         <Pressable
@@ -129,12 +119,6 @@ export default function HomeScreen() {
             <ScanItem
               key={scan.id}
               scan={scan}
-              onPress={() =>
-                router.push({
-                  pathname: "/results",
-                  params: { scanId: scan.id },
-                })
-              }
             />
           ))}
         </View>
