@@ -40,7 +40,17 @@
         "backgroundColor": "#10B981"
       },
       "package": "com.seed.scanner",
-      "softwareKeyboardLayoutMode": "resize"
+      "softwareKeyboardLayoutMode": "resize",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "52f95177-7a10-4015-90b8-6d0d70bc5e85"
+      }
     }
   }
 }

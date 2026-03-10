@@ -36,9 +36,10 @@ async function apiFetch<T>(
     }
 
     return response.json() as Promise<T>;
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof ApiError) throw error;
-    // Network error (no internet, DNS failure, timeout, etc.)
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn("apiFetch failed", url, message);
     throw new ApiError(
       "Network error — check your connection and server URL.",
       0,
@@ -110,7 +111,6 @@ export async function detectImage(
     {
       method: "POST",
       body: formData,
-      headers: { "Content-Type": "multipart/form-data" },
     }
   );
 
@@ -141,7 +141,6 @@ export async function detectVideo(
     {
       method: "POST",
       body: formData,
-      headers: { "Content-Type": "multipart/form-data" },
     }
   );
 

@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { Detection } from "../api/detection";
 
+const DEFAULT_API_URL = process.env.EXPO_PUBLIC_API_URL || "http://192.168.1.100:8000";
+
 const SCANS_KEY = "scan_history";
 const SETTINGS_KEY = "app_settings";
 
@@ -26,7 +28,7 @@ export interface AppSettings {
 
 const DEFAULT_SETTINGS: AppSettings = {
   confidence: 0.5,
-  apiUrl: "http://192.168.1.100:8000",
+  apiUrl: DEFAULT_API_URL,
   autoSave: true,
   imageQuality: "high",
 };
